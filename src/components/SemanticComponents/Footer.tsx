@@ -36,25 +36,7 @@ function Footer() {
 
           <li>
             <a
-              href="https://twitter.com/"
-              className="hover:text-blue-200 transition"
-            >
-              Twitter
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://linkedin.com/"
-              className="hover:text-blue-200 transition"
-            >
-              LinkedIn
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://instagram.com/"
+              href="https://www.instagram.com/shuvam._661/?next=%2F"
               className="hover:text-blue-200 transition"
             >
               Instagram
