@@ -1,0 +1,16 @@
+﻿.next/dev/types/validator.ts(81,31): error TS2344: Type 'typeof import("C:/New folder/Desktop/Common Files/decentralized voting system/my-app/src/app/playground/page")' does not satisfy the constraint 'AppPageConfig<"/playground">'.
+  Property 'default' is missing in type 'typeof import("C:/New folder/Desktop/Common Files/decentralized voting system/my-app/src/app/playground/page")' but required in type 'AppPageConfig<"/playground">'.
+.next/types/validator.ts(81,31): error TS2344: Type 'typeof import("C:/New folder/Desktop/Common Files/decentralized voting system/my-app/src/app/playground/page")' does not satisfy the constraint 'AppPageConfig<"/playground">'.
+  Property 'default' is missing in type 'typeof import("C:/New folder/Desktop/Common Files/decentralized voting system/my-app/src/app/playground/page")' but required in type 'AppPageConfig<"/playground">'.
+src/app/playground/page.tsx(2,34): error TS2307: Cannot find module '~/hooks/useSyncProviders' or its corresponding type declarations.
+src/app/playground/page.tsx(3,31): error TS2307: Cannot find module '~/utils' or its corresponding type declarations.
+src/app/playground/page.tsx(15,8): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type '{}'.
+  Property '0' does not exist on type '{}'.
+src/app/playground/page.tsx(17,22): error TS7053: Element implicitly has an 'any' type because expression of type '0' can't be used to index type '{}'.
+  Property '0' does not exist on type '{}'.
+src/app/playground/page.tsx(42,23): error TS18048: 'selectedWallet' is possibly 'undefined'.
+src/app/playground/page.tsx(42,54): error TS18048: 'selectedWallet' is possibly 'undefined'.
+src/app/playground/page.tsx(43,19): error TS18048: 'selectedWallet' is possibly 'undefined'.
+src/hooks/store.ts(3,5): error TS2717: Subsequent property declarations must have the same type.  Property '"eip6963:announceProvider"' must be of type 'CustomEvent<EIP6963ProviderDetail>', but here has type 'CustomEvent<any>'.
+src/hooks/useElectionContract.ts(13,17): error TS2345: Argument of type 'EIP6963ProviderDetail[]' is not assignable to parameter of type 'ContractRunner'.
+  Property 'provider' is missing in type 'EIP6963ProviderDetail[]' but required in type 'ContractRunner'.

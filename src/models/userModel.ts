@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema({
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
+    hasVoted: {
+        type: Boolean,
+        default: false,
+    },
+    votedParty: {
+        type: String,
+        default: "",
+    }
 })
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);

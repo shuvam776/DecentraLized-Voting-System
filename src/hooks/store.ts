@@ -1,9 +1,4 @@
-declare global {
-  interface WindowEventMap {
-    "eip6963:announceProvider": CustomEvent
-  }
-}
-
+import { EIP6963AnnounceProviderEvent, EIP6963ProviderDetail } from "@/types/global"
 // An array to store the detected wallet providers.
 let providers: EIP6963ProviderDetail[] = []
 
@@ -16,15 +11,11 @@ export const store = {
       providers = [...providers, event.detail]
       callback()
     }
-
-    // Listen for eip6963:announceProvider and call onAnnouncement when the event is triggered.
-    window.addEventListener("eip6963:announceProvider", onAnnouncement)
-
     // Dispatch the event, which triggers the event listener in the MetaMask wallet.
     window.dispatchEvent(new Event("eip6963:requestProvider"))
 
     // Return a function that removes the event listener.
     return () =>
-      window.removeEventListener("eip6963:announceProvider", onAnnouncement)
+      window.removeEventListener("eip6963:announceProvider", onAnnouncement as any)
   },
 }

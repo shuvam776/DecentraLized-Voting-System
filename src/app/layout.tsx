@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { MetaMaskAuthContextProvider } from "@/context/metamaskAuth";
+import { PartyAuthContextProvider } from "@/context/partyAuth";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,11 +27,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://kit.fontawesome.com/5f1aab7443.js"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <MetaMaskAuthContextProvider>
+          <PartyAuthContextProvider>
+            {children}
+            
+          </PartyAuthContextProvider>
+        </MetaMaskAuthContextProvider>
       </body>
     </html>
   );
 }
+
