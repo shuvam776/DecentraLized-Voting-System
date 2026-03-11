@@ -139,7 +139,7 @@ export default function VotePanel() {
                                 {hasVotedToday ? "Already Voted" : "Cast Vote"}
                             </button>
                             {hasVotedToday && (
-                              <p className="text-sm text-green-600 font-bold mt-2">✓ Vote Recorded</p>
+                              <p className="text-sm text-green-600 font-bold mt-2"> Vote Recorded</p>
                             )}
                         </motion.div>
                     )

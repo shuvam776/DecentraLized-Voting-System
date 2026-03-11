@@ -50,6 +50,9 @@ importers:
       nodemailer:
         specifier: ^7.0.12
         version: 7.0.13
+      pulse-toast:
+        specifier: ^1.0.15
+        version: 1.0.15(framer-motion@12.34.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(lucide-react@0.575.0(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       radix-ui:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -3865,6 +3868,14 @@ packages:
 
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+
+  pulse-toast@1.0.15:
+    resolution: {integrity: sha512-xy61ASL6Y7KxuMsizbMBX102WViPS+9Wj8BXk1B7aQbJhrv+XVHYYyKOUXVSDgEm/qUhmsD/sWgsIrDcgExCIA==}
+    peerDependencies:
+      framer-motion: '>=10'
+      lucide-react: '>=0.300'
+      react: '>=18'
+      react-dom: '>=18'
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -8778,6 +8789,13 @@ snapshots:
       ipaddr.js: 1.9.1
 
   proxy-from-env@1.1.0: {}
+
+  pulse-toast@1.0.15(framer-motion@12.34.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(lucide-react@0.575.0(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+    dependencies:
+      framer-motion: 12.34.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      lucide-react: 0.575.0(react@19.2.1)
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
 
   punycode@2.3.1: {}
 

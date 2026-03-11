@@ -44,6 +44,11 @@ export const useElectionContract = () => {
         return await readContract.hasVotedToday(address);
     }, [readContract, address]);
 
+    const electionEndsAt = useCallback(async () => {
+        if (!readContract) return 0;
+        return Number(await readContract.electionEndsAt());
+    }, [readContract]);
+
     const vote = useCallback(async (partyId: number) => {
         if (!writeContract) throw new Error("Wallet not connected");
         const tx = await writeContract.vote(partyId);
@@ -57,11 +62,12 @@ export const useElectionContract = () => {
             getParty,
             getVotes,
             hasVotedToday,
+            electionEndsAt,
         },
         write: {
             vote,
         },
-    }), [readContract, getPartyCount, getParty, getVotes, hasVotedToday, vote]);
+    }), [readContract, getPartyCount, getParty, getVotes, hasVotedToday, electionEndsAt, vote]);
 
     return result;
 }

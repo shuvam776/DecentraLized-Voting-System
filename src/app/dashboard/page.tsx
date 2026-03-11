@@ -22,6 +22,8 @@ function Dashboard() {
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false);
   const { address } = useMetaMaskAuth();
   const { parties = [], setParties } = usePartyAuth() || {};
+  const [electionEndsAt, setElectionEndsAt] = useState<number>(0);
+  const [isElectionEnded, setIsElectionEnded] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -45,7 +47,15 @@ function Dashboard() {
       try {
 
         console.log("[fetchParties] Fetching from blockchain...");
-        const partyCount = await read.getPartyCount();
+        const [partyCount, endsAt] = await Promise.all([
+          read.getPartyCount(),
+          read.electionEndsAt ? read.electionEndsAt() : Promise.resolve(0)
+        ]);
+
+        const endTime = Number(endsAt) * 1000;
+        setElectionEndsAt(endTime);
+        setIsElectionEnded(Date.now() > endTime && endTime !== 0);
+
         const partyPromises = [];
 
         for (let i = 0; i < Number(partyCount); i++) {
@@ -114,6 +124,54 @@ function Dashboard() {
             <MetaMaskConnect />
           </div>}
         </div>
+
+        {isMetaMaskConnected && parties.length > 0 && (
+          <div className="mt-16 w-full max-w-4xl mx-auto bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl p-8 shadow-2xl text-center transform hover:scale-[1.01] transition-transform duration-300">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-wider">
+              {isElectionEnded ? "Election Results" : "Current Standings"}
+            </h2>
+            <div className="w-16 h-1 bg-white mx-auto rounded mb-6 opacity-50"></div>
+            
+            {parties.length > 0 && (() => {
+              const maxVotes = Math.max(...parties.map(p => p.votes));
+              const leaders = parties.filter(p => p.votes === maxVotes);
+              
+              if (maxVotes === 0) {
+                return <p className="text-xl text-white font-medium">No votes cast yet.</p>;
+              }
+              
+              if (leaders.length > 1) {
+                return (
+                  <div>
+                    <p className="text-lg text-orange-100 font-semibold mb-2">It's a tie between:</p>
+                    <div className="flex flex-wrap justify-center gap-4">
+                      {leaders.map((leader, idx) => (
+                        <div key={idx} className="bg-white/20 backdrop-blur-md px-6 py-3 rounded-xl border border-white/30 text-white font-bold text-xl">
+                          {leader.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              
+              const winner = leaders[0];
+              return (
+                <div className="flex flex-col items-center">
+                  <p className="text-lg text-orange-100 font-semibold mb-2">
+                    {isElectionEnded ? "The Winner is:" : "Currently Leading:"}
+                  </p>
+                  <div className="bg-white px-8 py-4 rounded-2xl shadow-lg border border-orange-100 flex flex-col sm:flex-row items-center gap-4">
+                    <span className="text-3xl text-gray-900 font-black">{winner.name}</span>
+                    <span className="bg-orange-100 text-orange-800 px-4 py-1 rounded-full text-sm font-bold border border-orange-200">
+                      {winner.votes} Votes
+                    </span>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
       </div>
 
       <Footer />
