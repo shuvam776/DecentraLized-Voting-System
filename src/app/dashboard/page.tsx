@@ -90,8 +90,13 @@ function Dashboard() {
     </div>
   )
 
+  // Calculate winner/leaders at the component level so they are accessible everywhere
+  const maxVotes = parties.length > 0 ? Math.max(...parties.map(p => p.votes)) : 0;
+  const leaders = parties.filter(p => p.votes === maxVotes);
+  const winner = leaders.length > 0 ? leaders[0] : null;
+
   return (
-    <div className="relative min-h-[100dvh] flex flex-col pt-20 overflow-x-hidden">
+    <div className="relative min-h-dvh flex flex-col pt-20 overflow-x-hidden">
       <Navbar />
       <SmoothCursor />
       <img src="https://res.cloudinary.com/dpju1wia5/image/upload/v1773207814/images_ofdbvi.jpg" className="fixed top-0 left-0 w-full h-full object-cover opacity-20 -z-20 pointer-events-none" alt="background"/>
@@ -125,51 +130,84 @@ function Dashboard() {
           </div>}
         </div>
 
-        {isMetaMaskConnected && parties.length > 0 && (
-          <div className="mt-16 w-full max-w-4xl mx-auto bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl p-8 shadow-2xl text-center transform hover:scale-[1.01] transition-transform duration-300">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2 tracking-wider">
-              {isElectionEnded ? "Election Results" : "Current Standings"}
-            </h2>
-            <div className="w-16 h-1 bg-white mx-auto rounded mb-6 opacity-50"></div>
-            
-            {parties.length > 0 && (() => {
-              const maxVotes = Math.max(...parties.map(p => p.votes));
-              const leaders = parties.filter(p => p.votes === maxVotes);
-              
-              if (maxVotes === 0) {
-                return <p className="text-xl text-white font-medium">No votes cast yet.</p>;
-              }
-              
-              if (leaders.length > 1) {
-                return (
-                  <div>
-                    <p className="text-lg text-orange-100 font-semibold mb-2">It's a tie between:</p>
-                    <div className="flex flex-wrap justify-center gap-4">
-                      {leaders.map((leader, idx) => (
-                        <div key={idx} className="bg-white/20 backdrop-blur-md px-6 py-3 rounded-xl border border-white/30 text-white font-bold text-xl">
-                          {leader.name}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              }
-              
-              const winner = leaders[0];
-              return (
-                <div className="flex flex-col items-center">
-                  <p className="text-lg text-orange-100 font-semibold mb-2">
-                    {isElectionEnded ? "The Winner is:" : "Currently Leading:"}
-                  </p>
-                  <div className="bg-white px-8 py-4 rounded-2xl shadow-lg border border-orange-100 flex flex-col sm:flex-row items-center gap-4">
-                    <span className="text-3xl text-gray-900 font-black">{winner.name}</span>
-                    <span className="bg-orange-100 text-orange-800 px-4 py-1 rounded-full text-sm font-bold border border-orange-200">
-                      {winner.votes} Votes
-                    </span>
-                  </div>
+        {isMetaMaskConnected && (
+          <div className="mt-16 w-full max-w-4xl mx-auto space-y-12">
+            {/* CURRENT RESULTS SECTION */}
+            {parties.length > 0 ? (
+              <div className="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-2xl text-center border border-white/40">
+                <div className="flex flex-col items-center mb-6">
+                  <span className="bg-blue-100 text-gray-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-2">
+                    {isElectionEnded ? "Election Finalized" : "Live Standings"}
+                  </span>
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+                    {isElectionEnded ? "Final Results" : "Who's Winning?"}
+                  </h2>
                 </div>
-              );
-            })()}
+                
+                <div className="w-16 h-1 bg-green-400 mx-auto rounded mb-8 opacity-50"></div>
+                
+                {(() => {
+                  if (maxVotes === 0) {
+                    return <p className="text-xl text-gray-500 font-medium">No votes recorded yet.</p>;
+                  }
+                  
+                  if (leaders.length > 1) {
+                    return (
+                      <div className="space-y-4">
+                        <p className="text-lg text-gray-600 font-semibold">Current Tie Between:</p>
+                        <div className="flex flex-wrap justify-center gap-4">
+                          {leaders.map((leader, idx) => (
+                            <div key={idx} className="bg-blue-50 px-6 py-4 rounded-2xl border border-blue-100 text-gray-900 font-bold text-xl shadow-sm">
+                              {leader.name}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                  
+                  if (winner) {
+                    return (
+                      <div className="flex flex-col items-center">
+                        <p className="text-lg text-gray-600 font-semibold mb-4">
+                          {isElectionEnded ? "The Winner is:" : "Current Leader:"}
+                        </p>
+                        <div className="bg-linear-to-br bg-blue-400 px-10 py-6 rounded-3xl shadow-xl flex flex-col items-center gap-2 transform hover:scale-105 transition-transform">
+                          <span className="text-4xl text-white font-black uppercase tracking-wide">{winner.name}</span>
+                          <div className="flex items-center gap-2 text-blue-100">
+                            <span className="text-sm font-bold opacity-80">Total Votes:</span>
+                            <span className="text-xl font-bold">{winner.votes}</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+              </div>
+            ) : (
+              /* INACTIVE CONTRACT FALLBACK */
+              <div className="bg-white/60 backdrop-blur-md rounded-3xl p-10 shadow-lg text-center border border-dashed border-gray-300">
+                <h2 className="text-2xl font-bold text-gray-400 mb-2">Contract Currently Inactive</h2>
+                <p className="text-gray-500">No active election data was found on the blockchain for this session.</p>
+              </div>
+            )}
+
+            {/* PREVIOUS ELECTION SECTION */}
+            <div className="bg-gray-900/90 backdrop-blur-md rounded-3xl p-8 shadow-2xl text-center border border-gray-800">
+              <h3 className="text-xl font-bold text-gray-400 mb-6 uppercase tracking-[0.2em]">Previous Election Data</h3>
+              <div className="flex flex-col md:flex-row items-center justify-around gap-8">
+                <div className="text-left">
+                  <p className="text-gray-500 text-xs font-bold uppercase mb-1">Last Winner (2025)</p>
+                  <p className="text-3xl font-black text-white">{winner?.name || "Tied/No Votes"}</p>
+                </div>
+                <div className="h-px w-full md:h-12 md:w-px bg-gray-800"></div>
+                <div className="text-left">
+                  <p className="text-gray-500 text-xs font-bold uppercase mb-1">Network</p>
+                  <p className="text-3xl font-black text-blue-400">Mainnet</p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

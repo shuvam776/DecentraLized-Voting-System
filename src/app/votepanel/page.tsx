@@ -7,8 +7,7 @@ import MetaMaskConnect from "@/components/MetaMaskConnect"
 import { motion } from "framer-motion"
 import Navbar from "@/components/SemanticComponents/Navbar"
 import Footer from "@/components/SemanticComponents/Footer"
-import { useContext } from "react"
-import { PartyAuthContext, usePartyAuth } from "@/context/partyAuth"
+import { usePartyAuth } from "@/context/partyAuth"
 import { useRouter } from "next/navigation"
 import { auth } from "@/utils/firebase"
 import { onAuthStateChanged } from "firebase/auth"
@@ -112,7 +111,7 @@ export default function VotePanel() {
         )
     }
     return (
-    <div className="relative min-h-[100dvh] flex flex-col pt-20 overflow-x-hidden">
+    <div className="relative min-h-dvh flex flex-col pt-20 overflow-x-hidden">
         <Navbar />
         <img src='https://res.cloudinary.com/dpju1wia5/image/upload/v1773207808/360_F_203684776_X101RJ82DsPNBo4UGwqGbJX7Ks3lmQlA_tcdwmz.jpg' className="fixed top-0 left-0 w-full h-full object-cover -z-20 pointer-events-none"/>
         <div className="relative z-10 flex flex-col items-center justify-center mt-8 text-black text-center w-full px-4 text-3xl md:text-4xl font-extrabold uppercase tracking-widest drop-shadow-xl">
