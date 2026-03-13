@@ -5,9 +5,9 @@ export const ELECTION_CONFIG = {
 
   contract: {
     name: "Election",
-    address: "0x3F9A4215A55696E63062230A6C7ce3fC285f23DB",
+    address: "0xaf949625B9644a7D3f45b06E834Ca776607cC054",
     deploymentTxHash:
-      "0xfa1a05a6bd0639cdc0037d1860d4e586c52fc93619173ad1737f83027b23a8f0",
+      "0xe3eab4595fee4f7f56e41b7de85c0612ad1375ea7c7d81484c894bf59061aa91",
   },
 
   explorer: {

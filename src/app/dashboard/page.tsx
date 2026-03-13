@@ -204,7 +204,7 @@ function Dashboard() {
                 <div className="h-px w-full md:h-12 md:w-px bg-gray-800"></div>
                 <div className="text-left">
                   <p className="text-gray-500 text-xs font-bold uppercase mb-1">Network</p>
-                  <p className="text-3xl font-black text-blue-400">Mainnet</p>
+                  <p className="text-3xl font-black text-orange-400">Testnet</p>
                 </div>
               </div>
             </div>
