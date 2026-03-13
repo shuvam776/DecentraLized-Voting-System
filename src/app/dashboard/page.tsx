@@ -188,7 +188,7 @@ function Dashboard() {
             ) : (
               /* INACTIVE CONTRACT FALLBACK */
               <div className="bg-white/60 backdrop-blur-md rounded-3xl p-10 shadow-lg text-center border border-dashed border-gray-300">
-                <h2 className="text-2xl font-bold text-gray-400 mb-2">Contract Currently Inactive</h2>
+                <h2 className="text-2xl font-bold text-gray-400 mb-2">Contract Currently Inactive Election will start shortly</h2>
                 <p className="text-gray-500">No active election data was found on the blockchain for this session.</p>
               </div>
             )}
@@ -198,7 +198,7 @@ function Dashboard() {
               <h3 className="text-xl font-bold text-gray-400 mb-6 uppercase tracking-[0.2em]">Previous Election Data</h3>
               <div className="flex flex-col md:flex-row items-center justify-around gap-8">
                 <div className="text-left">
-                  <p className="text-gray-500 text-xs font-bold uppercase mb-1">Last Winner (2025)</p>
+                  <p className="text-gray-500 text-xs font-bold uppercase mb-1">Last Winner (Yesterday)</p>
                   <p className="text-3xl font-black text-white">{winner?.name || "Tied/No Votes"}</p>
                 </div>
                 <div className="h-px w-full md:h-12 md:w-px bg-gray-800"></div>
